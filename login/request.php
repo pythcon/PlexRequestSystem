@@ -91,20 +91,20 @@ $requestInfo = getRequestInfo($id);
 					</div>
 					<div class="form-group">
 						<label for="media">Name of Media:</label>
-						<input type="text" class="form-control" name="media" <?php echo "value='".$requestInfo[2]."'";?>>
+						<input type="text" class="form-control" name="media" <?php echo "value=\"".$requestInfo[2]."\"";?>>
 					</div>
 					<div class="form-group">
 						<label for="dateCreated">Date Created:</label>
-						<input type="text" class="form-control" name="dateCreated" <?php echo "value='".$requestInfo[3]."'";?>>
+						<input type="text" class="form-control" name="dateCreated" <?php echo "value=\"".$requestInfo[3]."\"";?>>
 					</div>
 					<div class="form-inline">
 						<label for="dateCompleted">Date Completed:&nbsp;</label>
-						<input type="text" class="form-control" name="dateCompleted" <?php echo "value='".$requestInfo[4]."'";?>>
+						<input type="text" class="form-control" name="dateCompleted" <?php echo "value=\"".$requestInfo[4]."\"";?>>
 						&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-danger form-control submitBtn" <?php echo "onclick='window.location.replace(\"completeRequest.php?id=".$id."\");'";?>>Complete Now</button>
 					</div>
 					<div class="form-group">
 						<label for="notes">Notes:</label>
-						<input type="text" class="form-control" name="notes" <?php echo "value='".$requestInfo[5]."'";?>>
+						<input type="text" class="form-control" name="notes" <?php echo "value=\"".$requestInfo[5]."\"";?>>
 					</div>
 					<div class="form-group">
 						<br>
