@@ -23,7 +23,7 @@ if (empty($firstName) || empty($type) || empty($name)){
 //check if request already in system
 if (!requestAlreadySubmitted($name)){
     if (addRequest($firstName, $type, $name)){
-        redirectToRequests('Request Submitted.');
+        redirectToRequests('Request Submitted.', $firstName);
     }else{
         redirect('Something went wrong. Please try again.');
     }

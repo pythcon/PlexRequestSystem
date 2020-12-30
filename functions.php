@@ -9,11 +9,11 @@ function redirect($message){
     exit();
 }
 
-function redirectToRequests($message){
+function redirectToRequests($message, $user){
     echo"
     <script>
         alert(\"".$message."\");
-        window.location.replace(\"requests.php\");
+        window.location.replace(\"requests.php?u=".$user."\");
     </script>";
     exit();
 }
@@ -97,7 +97,7 @@ function getRequestsForUser($firstName){
     global $db;
     $out = "";
     
-    $sql = "SELECT * FROM requests WHERE firstName LIKE :firstName";
+    $sql = "SELECT * FROM requests WHERE firstName LIKE :firstName ORDER BY created DESC";
     $statement = $db->prepare($sql);
 
     $statement->bindValue(':firstName', $firstName);
