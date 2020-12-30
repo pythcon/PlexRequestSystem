@@ -93,6 +93,45 @@ function getRequests(){
     return $out;
 }
 
+function getRequestsForUser($firstName){
+    global $db;
+    $out = "";
+    
+    $sql = "SELECT * FROM requests WHERE firstName LIKE :firstName";
+    $statement = $db->prepare($sql);
+
+    $statement->bindValue(':firstName', $firstName);
+
+    $statement->execute();
+    $requests = $statement->fetchAll();
+
+    foreach ($requests as $row){
+        if (!empty($row['notes']) && empty($row['completed'])){
+            $out .= "<tr class='table-warning'>";
+        }else if(empty($row['completed'])){
+            $out .= "<tr class='table-danger'>";
+        }else{
+            $out .= "<tr class='table-success'>";
+        }
+        $out .= "<td>".$row['firstName']. "</td>";
+        $out .= "<td>".$row['type']."</td>";
+        $out .= "<td>".$row['name']."</td>";
+        $out .= "<td>".date('F j, Y g:i a', strtotime($row['created']))."</td>";
+
+        if (!empty($row['completed'])){
+            $out .= "<td>".date('F j, Y g:i a', strtotime($row['completed']))."</td>";
+        }else{
+            $out .= "<td>&nbsp;</td>";
+        }
+
+        $out .= "<td>".$row['notes']."</td>";
+
+        $out .= "</tr>";
+    }
+
+    return $out;
+}
+
 function requestAlreadySubmitted($name){
     global $db;
     

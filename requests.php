@@ -1,6 +1,8 @@
 <?php
 include('account.php');
 include('functions.php');
+
+$user = filter_input(INPUT_GET, 'u');
 ?>
 
 <!DOCTYPE html>
@@ -38,17 +40,47 @@ include('functions.php');
 				<img src="plex.png">
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-lg-12 headerContainer d-flex justify-content-center text-center">
-				<div class="">
-					<h3>Here are a list of all the requests!</h3>
-					<p>(<span style="color: red;">Red</span> = not started | <span style="color: yellow;">Yellow</span> = in progress | <span style="color: green;">Green</span> = complete)</p>
+	<?php
+	if (empty($user) || empty(getRequestsForUser($user))){
+		echo "
+		<div class='row'>
+			<div class='col-lg-12 headerContainer d-flex justify-content-center text-center'>
+				<div class=''>
+					<h4>Please enter your first name to check the status of your requests!</h4>";
+					if (empty(getRequestsForUser($user)) && !empty($user)){
+						echo "<span style=\"color: red;\">No results found.</span>";
+					}
+		echo "
 				</div>
 			</div>
 		</div>
-		<div class="row justify-content-center d-flex">
-			<div class="col-lg-10" style="overflow: auto;">
-				<table class="table table-striped">
+		<div class='row justify-content-center'>
+			<div class='col-lg-6'>
+				<form class='form' method='GET' action='requests.php'>
+					<div class='form-group'>
+						<label for='u'>First Name:</label>
+						<input type='text' class='form-control' name='u' placeholder='John, Janice, Jerry, Joanna.....your first name!'>
+					</div>
+					<div class='form-group'>
+						<br>
+						<button type='submit' class='btn btn-outline-danger form-control navButton'>Search my Requests</button>
+					</div>
+				</form>
+			</div>
+		</div>";
+	}else{
+		echo "
+		<div class='row'>
+			<div class='col-lg-12 headerContainer d-flex justify-content-center text-center'>
+				<div class=''>
+					<h3>Here are a list of your requests!</h3>
+					<p>(<span style='color: red;'>Red</span> = not started | <span style='color: yellow;'>Yellow</span> = in progress | <span style='color: green;'>Green</span> = complete)</p>
+				</div>
+			</div>
+		</div>
+		<div class='row justify-content-center d-flex'>
+			<div class='col-lg-10' style='overflow: auto;'>
+				<table class='table table-striped'>
 					<thead>
 						<tr>
 							<th>Name</th>
@@ -59,12 +91,15 @@ include('functions.php');
 							<th>Notes</th>
 						</tr>
 					</thead>
-					<tbody>
-						<?php echo getRequests(); ?>
+					<tbody>";
+						echo getRequestsForUser($user);
+		echo "
 					</tbody>
 				</table>
 			</div>
-		</div>
+		</div>";
+	}
+	?>
 	</div>
 	<!-- Footer -->
 	<footer class="page-footer font-small cyan darken-3">
