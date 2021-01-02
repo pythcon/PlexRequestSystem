@@ -12,9 +12,9 @@ try {
 }
 //DBBBBBB
 
-$firstName = filter_input(INPUT_POST, 'firstName');
-$type      = filter_input(INPUT_POST, 'type');
-$name      = filter_input(INPUT_POST, 'media');
+$firstName = trim(filter_input(INPUT_POST, 'firstName'));
+$type      = trim(filter_input(INPUT_POST, 'type'));
+$name      = trim(filter_input(INPUT_POST, 'media'));
 
 if (empty($firstName) || empty($type) || empty($name)){
     redirect('Make sure you filled everything out!');
